@@ -1,5 +1,6 @@
 import avatar1 from "/public/avatar1.png";
 import avatar2 from "/public/avatar2.png";
+import clsx from "clsx";
 
 export type Message = {
   user: number;
@@ -35,11 +36,62 @@ export default function MessageThread() {
     },
   ];
 
+  function renderImage(dm: Message, index: number, dms: Message[]) {
+    const prevDm = dms[index - 1];
+    return (
+      <img
+        className={clsx("h-10 w-10 rounded-full", {
+          "h-10 w-10 rounded-full invisible": prevDm && dm.user == prevDm.user,
+        })}
+        src={dm.avatar}
+      />
+    );
+  }
+
+  function corner(dm: Message, index: number, dms: Message[]) {
+    const prevDm = dms[index - 1];
+    const nextDm = dms[index + 1];
+    if (prevDm && dm.user != prevDm.user) {
+      return "rounded-lg";
+    } else if (prevDm && dm.user == prevDm.user) {
+      return "rounded-lg rounded-tr-none";
+    } else if (nextDm && dm.user == nextDm.user) {
+      return "rounded-lg rounded-br-none";
+    }
+  }
+
   return (
     <>
-      <div>
-        <div className="font-[Inter] weight-400 text-5xl">Message Thread</div>
-        <div className="font-[Inter]"></div>
+      <div className="m-auto flex flex-col gap-2 ml-10">
+        <div className="font-[Inter] weight-400 text-5xl self-start mt-10 mb-8">
+          Message Thread
+        </div>
+        {dms.map((dm, i) => (
+          <div
+            className={clsx("flex flex-row mr-25 max-width-[85] gap-3", {
+              "flex-row-reverse": dm.user == 1,
+            })}
+          >
+            {renderImage(dm, i, dms)}
+            <div
+              className={clsx(
+                "flex flex-row font-medium text-sm p-4 bg-[#74C2FF] max-w-3xl",
+                {
+                  "bg-[#D8D8D8]": dm.user == 2,
+                },
+                corner(dm, i, dms)
+              )}
+            >
+              <div className="flex flex-col font-[Inter] items-center">
+                <div className="flex flex-row-reverse">
+                  <div key={i} className="">
+                    {dm.message}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );
