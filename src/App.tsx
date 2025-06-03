@@ -1,10 +1,10 @@
-import TaskList from "./assets/components/TaskList";
+import MessageThread from "./assets/components/MessageThread";
 
 export default function App() {
   return (
     <div>
       <div>
-        <TaskList />
+        <MessageThread />
       </div>
     </div>
   );
