@@ -1,10 +1,10 @@
-import MessageThread from "./assets/components/MessageThread";
+import SocialMediaPost from "./assets/components/SocialMediaPost";
 
 export default function App() {
   return (
     <div>
       <div>
-        <MessageThread />
+        <SocialMediaPost />
       </div>
     </div>
   );
