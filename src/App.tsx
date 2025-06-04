@@ -1,10 +1,10 @@
-import TaskList from "./assets/components/TaskList";
+import SocialMediaPost from "./assets/components/SocialMediaPost";
 
 export default function App() {
   return (
     <div>
       <div>
-        <TaskList />
+        <SocialMediaPost />
       </div>
     </div>
   );
